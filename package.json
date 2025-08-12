@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "node ./dist/index.js",
+    "start": "node ./Dist/index.js",
     "dev": "npx ts-node-dev --respawn --transpile-only index.ts"
   },
   "keywords": [],
