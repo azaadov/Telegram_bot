@@ -13,18 +13,12 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "axios": "^1.11.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "instagram-url-direct": "^2.0.7",
     "mongoose": "^8.17.1",
-    "node-fetch": "^3.3.2",
-    "node-telegram-bot-api": "^0.66.0",
-    "pg": "^8.16.3",
-    "pg-hstore": "^2.3.4",
-    "sequelize": "^6.37.7",
-    "ytdl-core": "^4.11.5"
+    "node-telegram-bot-api": "^0.66.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
@@ -33,7 +27,6 @@
     "@types/mongoose": "^5.11.96",
     "@types/node": "^24.2.1",
     "@types/node-telegram-bot-api": "^0.64.10",
-    "@types/sequelize": "^4.28.20",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.2"
