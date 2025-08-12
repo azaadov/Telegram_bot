@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.startTelegramBot = startTelegramBot;
 const node_telegram_bot_api_1 = __importDefault(require("node-telegram-bot-api"));
 const instagram_url_direct_1 = require("instagram-url-direct");
+const tgBot_schema_1 = __importDefault(require("../model/tgBot.schema"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const bot = new node_telegram_bot_api_1.default(process.env.BOT_TOKEN, { polling: true });
@@ -23,15 +24,25 @@ function startTelegramBot() {
         { command: "start", description: "Botni ishga tushirish" },
     ]);
     const botUsername = process.env.BOT_USERNAME;
-    bot.onText(/\/start/, (msg) => {
+    bot.onText(/\/start/, (msg) => __awaiter(this, void 0, void 0, function* () {
+        var _a;
         const chatId = msg.chat.id;
+        const existingUser = yield tgBot_schema_1.default.findOne({ telegramUserId: chatId });
+        if (!existingUser) {
+            const newUser = new tgBot_schema_1.default({
+                name: ((_a = msg.from) === null || _a === void 0 ? void 0 : _a.first_name) || "NoName",
+                telegramUserId: chatId,
+                message: "/start tugmasi bosildi",
+            });
+            yield newUser.save();
+        }
         bot.sendMessage(chatId, `Assalomu alaykum! 👋\n` +
             `Menga link yuboring, men sizga video topib beraman.\n` +
             `Iltimos, quyidagilardan birini yuboring:\n` +
             `- To‘liq post havolasi\n` +
             `- Reel havolasi\n` +
             `- Story havolasi\n`);
-    });
+    }));
     bot.on("message", (msg) => __awaiter(this, void 0, void 0, function* () {
         var _a, _b, _c, _d;
         if (msg.text && msg.text.startsWith("/start"))
