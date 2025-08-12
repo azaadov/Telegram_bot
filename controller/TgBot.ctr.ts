@@ -1,5 +1,6 @@
 import TelegramBot from "node-telegram-bot-api";
 import { instagramGetUrl } from "instagram-url-direct";
+import TelegramBotModel from "../model/tgBot.schema"
 import dotenv from "dotenv";
 dotenv.config()
 
@@ -13,8 +14,21 @@ export function startTelegramBot() {
 
   const botUsername = process.env.BOT_USERNAME;
 
-  bot.onText(/\/start/, (msg) => {
+  bot.onText(/\/start/, async (msg) => {
     const chatId = msg.chat.id;
+
+    const existingUser = await TelegramBotModel.findOne({ telegramUserId: chatId });
+    
+    if (!existingUser) {
+      const newUser = new TelegramBotModel({
+        name: msg.from?.first_name || "NoName",
+        telegramUserId: chatId,
+        message: "/start tugmasi bosildi",
+      });
+      await newUser.save();
+    }
+
+
     bot.sendMessage(chatId, 
       `Assalomu alaykum! 👋\n` +
       `Menga link yuboring, men sizga video topib beraman.\n` +
